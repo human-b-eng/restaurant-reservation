@@ -1,4 +1,14 @@
 .side-bar {
-  background-color: #393a44;
+  background-color: #326e0f;
   min-width: 200px;
+}
+
+
+.table-head {
+  background-color: #eb9f11;
+  color: white;
+}
+
+html * {
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }

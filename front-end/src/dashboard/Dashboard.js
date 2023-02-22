@@ -101,7 +101,7 @@ function Dashboard({ date, reservations, tables, loadDashboard }) {
         </h3>
 
         <table className="table text-wrap text-center table-hover">
-          <thead className="thead-dark">
+          <thead className="table-head">
             <tr className="text-center">
               <th scope="col">ID</th>
               <th scope="col">First Name</th>
@@ -124,7 +124,7 @@ function Dashboard({ date, reservations, tables, loadDashboard }) {
         <h3 className="mb-4 font-weight-bold">Tables</h3>
 
         <table className="table table-hover m-1 text-nowrap mb-4">
-          <thead className="thead-dark">
+          <thead className="table-head">
             <tr className="text-center">
               <th scope="col">Table ID</th>
               <th scope="col">Table Name</th>

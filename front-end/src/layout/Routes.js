@@ -6,6 +6,7 @@ import { today } from "../utils/date-time";
 import { listReservations, listTables } from "../utils/api";
 import Dashboard from "../dashboard/Dashboard";
 import NewReservation from "../reservations/NewReservation";
+import EditReservation from "../reservations/EditReservation";
 import NewTable from "../tables/NewTable";
 import SeatReservation from "../reservations/SeatReservation";
 import Search from "../search/Search";
@@ -17,7 +18,6 @@ function Routes() {
   const [tables, setTables] = useState([]);
   const [tablesError, setTablesError] = useState(null);
   const [reservationsError, setReservationsError] = useState(null);
-  const [edit] = useState(true);
   const query = useQuery();
   const date = query.get("date") ? query.get("date") : today();
 
@@ -60,7 +60,7 @@ function Routes() {
       </Route>
 
       <Route path="/reservations/:reservation_id/edit">
-        <NewReservation loadDashboard={loadDashboard} edit={edit}  />
+        <EditReservation loadDashboard={loadDashboard}  />
       </Route>
 
       <Route path="/reservations/:reservation_id/seat">

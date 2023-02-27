@@ -6,7 +6,9 @@ function convertISOTimeToMinutes(time) {
 }
 
 function isFutureDate({ reservation_date, reservation_time }) {
-	if (new Date(`${reservation_date}T${reservation_time}`) < new Date()) {
+	let formattedDate = new Date(`${reservation_date}T${reservation_time}`);
+
+	if ((new Date()) > formattedDate) {
 		return new Error("Reservation date/time must occur in the future");
 	}
 }

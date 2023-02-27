@@ -42,7 +42,7 @@ function validType(){
         if(thisYear == resYear && thisMonth > resMonth){
             next({ status:400, message: 'You can only make reservations for the future.'})
         }
-        if(thisYear == resYear && thisDay > resDay){
+        if(thisYear == resYear && thisMonth == resMonth && thisDay > resDay){
             next({ status:400, message: 'You can only make reservations for the future.'})
         }
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 import ValidationErrors from "../layout/ValidationErrors";
-
+import formatPhone from "../utils/format-phone-number";
 import validate from "../utils/validate";
 
 export default function ReservationForm({
@@ -19,12 +19,22 @@ export default function ReservationForm({
 	const [reservation, setReservation] = useState(initialState);
 	const [errors, setErrors] = useState([]);
 
-	function changeHandler({ target: { name, value } }) {
+	// function changeHandler({ target: { name, value } }) {
+	// 	setReservation((previousReservation) => ({
+	// 		...previousReservation,
+	// 		[name]: value,
+	// 	}));
+	// }
+
+	function changeHandler(event) {
+		if (event.target.name === "mobile_number") {
+		  formatPhone(event.target);
+		}
 		setReservation((previousReservation) => ({
-			...previousReservation,
-			[name]: value,
+		  ...previousReservation,
+		  [event.target.name]: event.target.value,
 		}));
-	}
+	  };
     
 	function numberChangeHandler({ target: { name, value } }) {
 		setReservation((previousReservation) => ({
@@ -88,15 +98,16 @@ export default function ReservationForm({
 							Mobile Number:
 						</label>
 						<input
-							className="form-control"
-							id="mobile_number"
-							name="mobile_number"
-							type="tel"
-							placeholder="XXX-XXX-XXXX"
-							value={reservation.mobile_number}
-							onChange={changeHandler}
 							required
-						/>
+							type="tel"
+							pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+							maxLength="12"
+							onChange={changeHandler}
+							value={reservation.mobile_number}
+							placeholder="XXX-XXX-XXXX"
+							className="form-control"
+							name="mobile_number"
+						></input>
 					</div>
 				</div>
 				<div className="row mb-3">

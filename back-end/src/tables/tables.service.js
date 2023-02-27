@@ -11,51 +11,35 @@ function list(date) {
   }
   
 //query to create new table
-  function create(newTable) {
+  function create(table) {
     return knex("tables")
-      .insert(newTable)
+      .insert(table)
       .returning("*")
-      .then((tableData) => tableData[0]);
+      .then((newTable) => newTable[0]);
   }
   
-//query to seat table
-  function seat(table_id, reservation_id) {
-    return knex.transaction(function (trx) {
-      return trx("tables")
-        .where({ table_id })
-        .update({ reservation_id })
-        .returning("*")
-        .then(() => {
-          return trx("reservations")
-            .where({ reservation_id })
-            .update({ status: "seated" })
-            .returning("*")
-            .then((updatedRes) => updatedRes[0]);
-        });
-    });
-  }
- 
-//query to unseat table
-  function unseat({ table_id, reservation_id }) {
-    return knex.transaction(function (trx) {
-      return trx("tables")
-        .where({ table_id })
-        .update({ reservation_id: null })
-        .returning("*")
-        .then(() => {
-          return trx("reservations")
-            .where({ reservation_id })
-            .update({ status: `finished` })
-            .returning("*")
-            .then((tableData) => tableData[0]);
-        });
-    });
-  }
+// This function updates a table in the 'tables' table in the database based on the provided 'updatedTable' object
+function update(updatedTable) {
+  return knex("tables")
+      .select("*")
+      .where({ table_id: updatedTable.table_id })
+      .update(updatedTable, "*")
+      .then((updated) => updated[0])
+}
+
+//query to delete table from db
+  function destroy(tableId) {
+    return knex("tables")
+        .select("*")
+        .where({ table_id: tableId })
+        .update({reservation_id: null})
+        .then((updated) => updated[0])
+}
 
 module.exports = {
     list,
     create,
     read,
-    seat,
-    unseat,
+    update,
+    delete:destroy,
 };
